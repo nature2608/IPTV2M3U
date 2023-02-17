@@ -114,9 +114,5 @@
   <ItemGroup>
     <Resource Include="bitbug_favicon.ico" />
   </ItemGroup>
-  <ItemGroup>
-    <None Include="README.md" />
-    <None Include="Resources\1.jpeg" />
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
