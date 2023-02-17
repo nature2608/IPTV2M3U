@@ -1,21 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
 using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using Newtonsoft.Json;
 using System.Net;
 using System.IO;
-using System.Data;
 using static IPTV.Channels;
 using System.Diagnostics;
 
@@ -43,46 +33,37 @@ namespace IPTV
 
 
             RootObject rb = JsonConvert.DeserializeObject<RootObject>(retString);
-			DataTable dt = new DataTable();
-			dt.Columns.Add(new DataColumn("台号"));
-			dt.Columns.Add(new DataColumn("标题"));
-			dt.Columns.Add(new DataColumn("地址"));
-
-			for (int i = 0; i < rb.channels.Count; i++)
+            StringBuilder stringBuilder = new StringBuilder();
+            stringBuilder.Append("#EXTM3U\n");
+            foreach (Channels Object in rb.channels)
 			{
-
-				DataRow row = dt.NewRow();
-				row[0]=rb.channels[i].channelnum;
-				row[1] = rb.channels[i].title;
-				if (rb.channels[i].@params.hwurl.Length != 0)
+				stringBuilder.Append("#EXTINF:-1 ");
+				if(Object.icon!=string.Empty)
 				{
-					row[2] = rb.channels[i].@params.hwurl;
-					dt.Rows.Add(row);
-				}
-				
-				//rb.rows[i].businessDesc,rb.rows[i].targetlocationDesc,rb.rows[i].quantity
-				
+                    stringBuilder.Append(string.Format("tvg-logo:\"{0}\"", Object.icon));
+                }
+				stringBuilder.Append(string.Format(",{0}",Object.title));
+				stringBuilder.Append("\n");
+				if(UDPXYIP.Text!=string.Empty)
+				{
+                    stringBuilder.Append(string.Format("http://{0}", UDPXYIP.Text));
+                    stringBuilder.Append(string.Format("{0}\n", Object.@params.hwurl.Replace("rtp://", "/rtp/")));
+                }
+				else
+				{
+                    stringBuilder.Append(string.Format("{0}\n", Object.@params.hwurl));
+                }
 
 			}
-			for (int k = 0; k < dt.Rows.Count; k++)
-			{
-				string[] a = dt.Rows[k].ItemArray[2].ToString().Split('/');
-				string Finally = "http://"+UDPXYIP.Text + "/" + "rtp/" + a[2];
-				dt.Rows[k][2] = Finally;
-			}
-			string JsonPath = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Desktop)+"\\"+DateTime.Now.ToString("yyyy-M-dd-HH-mm")+".m3u";
+
+			string JsonPath = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Desktop)+"\\"+DateTime.Now.ToString("yyyy-M-dd-HH-mm-ss")+".m3u";
 			FileInfo m3ufile = new FileInfo(JsonPath);
 			 if (!m3ufile.Exists)
 				{
-				   // 创建map.json文件
                   FileStream fss = new FileStream(JsonPath, FileMode.CreateNew, FileAccess.ReadWrite);
 				  StreamWriter sw = new StreamWriter(fss);
-				  sw.Write("#EXTM3U\n");
-				for (int n = 0; n < dt.Rows.Count; n++)
-				{
-					sw.Write("#EXTINF:-1,"+dt.Rows[n].ItemArray[1] + "\n");
-					sw.Write(dt.Rows[n].ItemArray[2] + "\n");
-				}
+
+				sw.Write(stringBuilder);
 				  sw.Flush();
 				  sw.Close();
                      }

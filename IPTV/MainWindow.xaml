@@ -5,22 +5,33 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:IPTV"
         mc:Ignorable="d"
-        Title="广东移动IPTV转M3U" Height="450" Width="800" WindowStartupLocation="CenterScreen">
+        Title="广东移动IPTV转M3U" Height="450" Width="800" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
     <Grid>
-        <TextBlock FontSize="20" HorizontalAlignment="Right" Margin="0,10,20,0" ToolTip="请给我点赞吧！">           
-    <Hyperlink NavigateUri="https://github.com/nature2608/IPTV2M3U" Cursor="Hand" Click="Hyperlink_Click">
-             <Image Source="./1.jpeg" Height="40" Width="40" />
+        <TextBlock FontSize="20" HorizontalAlignment="Right" ToolTip="请给我点赞吧！">           
+    <Hyperlink NavigateUri="https://github.com/nature2608/IPTV2M3U" Cursor="Hand" Click="Hyperlink_Click" >
+             <Image Source="./1.jpeg" Height="60" Width="60" />
     </Hyperlink>
         </TextBlock>
-        <Label Content="请求地址：" FontSize="20" Margin="20,20,300,300"></Label>
-        <TextBox Name="ApplyUrl" FontSize="14" Text="http://183.235.16.92:8082/epg/api/custom/getAllChannel.json" Margin="120,25,0,0" Width="450" Height="30" HorizontalAlignment="Left" VerticalAlignment="Top"  VerticalContentAlignment="Center"></TextBox>
-        <StackPanel Orientation="Horizontal" Margin="20" HorizontalAlignment="Center" VerticalAlignment="Center" >
-            <Label Content="请输入内网udpxy地址：" FontSize="20" HorizontalAlignment="Center"></Label>
-            <TextBox Name="UDPXYIP" Text="192.168.1.1:4022" Width="200" BorderThickness="2" FontSize="20" VerticalAlignment="Center"></TextBox>
-            <Label Content="格式：192.168.1.1:4022" FontSize="20" Foreground="LightGray"></Label>
-        </StackPanel>
-        <Button Width="80" Height="50" Content="生成" Margin="0,120,0,0" Click="Generate"></Button>
-        <Label Content=" BY nature2608 V1.0" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,20,0"></Label>
-        
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="0.8*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <StackPanel Orientation="Horizontal" Margin="10,20,0,0">
+                <Label Content="请求地址：" FontSize="20"  VerticalAlignment="Center"></Label>
+                <TextBox Name="ApplyUrl" FontSize="18" Text="http://183.235.16.92:8082/epg/api/custom/getAllChannel.json"  VerticalAlignment="Center"  VerticalContentAlignment="Center"></TextBox>
+            </StackPanel>
+            <Label Grid.Row="1" Content="若清空内网地址则直接生成 rtp:// 开头格式地址" Width="270" Height="30"  VerticalAlignment="Bottom" HorizontalAlignment="Center"/>
+            <StackPanel Grid.Row="2" Orientation="Horizontal"  HorizontalAlignment="Center" VerticalAlignment="Top" >
+                <Label Content="请输入内网udpxy地址：" FontSize="20" HorizontalAlignment="Center"></Label>
+                <TextBox Name="UDPXYIP" Text="192.168.1.1:4022" Width="200" BorderThickness="2" FontSize="20" VerticalAlignment="Center"></TextBox>
+                <Label Content="格式：192.168.1.1:4022" FontSize="20" Foreground="LightGray"></Label>
+            </StackPanel>
+            <Button Grid.Row="3" Width="80" Height="50" Content="生成"  Click="Generate" VerticalAlignment="Top"></Button>
+        </Grid>
+        <Label Content=" By nature2608 V1.1" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,20,0"></Label>
+
     </Grid>
 </Window>
