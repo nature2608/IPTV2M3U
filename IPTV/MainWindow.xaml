@@ -23,7 +23,16 @@
                 <Label Content="请求地址：" FontSize="20"  VerticalAlignment="Center"></Label>
                 <TextBox Name="ApplyUrl" FontSize="18" Text="http://183.235.16.92:8082/epg/api/custom/getAllChannel.json"  VerticalAlignment="Center"  VerticalContentAlignment="Center"></TextBox>
             </StackPanel>
+            <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <CheckBox x:Name="IncludeLogo" Width="100" Content="生成台标" FontSize="16" IsChecked="True"></CheckBox>
+                <Label Content="使用平台："></Label>
+                <ComboBox x:Name="SelectPlatform" Height="30" VerticalAlignment="Top" SelectedIndex="0">
+                    <ComboBoxItem Content="华为平台"/>
+                    <ComboBoxItem Content="中兴平台"/>
+                </ComboBox>
+            </StackPanel>
             <Label Grid.Row="1" Content="若清空内网地址则直接生成 rtp:// 开头格式地址" Width="270" Height="30"  VerticalAlignment="Bottom" HorizontalAlignment="Center"/>
+
             <StackPanel Grid.Row="2" Orientation="Horizontal"  HorizontalAlignment="Center" VerticalAlignment="Top" >
                 <Label Content="请输入内网udpxy地址：" FontSize="20" HorizontalAlignment="Center"></Label>
                 <TextBox Name="UDPXYIP" Text="192.168.1.1:4022" Width="200" BorderThickness="2" FontSize="20" VerticalAlignment="Center"></TextBox>

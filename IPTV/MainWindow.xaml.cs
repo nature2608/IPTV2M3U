@@ -38,7 +38,7 @@ namespace IPTV
             foreach (Channels Object in rb.channels)
 			{
 				stringBuilder.Append("#EXTINF:-1 ");
-				if(Object.icon!=string.Empty)
+				if(Object.icon!=string.Empty && IncludeLogo.IsChecked==true)
 				{
                     stringBuilder.Append(string.Format("tvg-logo:\"{0}\"", Object.icon));
                 }
@@ -47,7 +47,15 @@ namespace IPTV
 				if(UDPXYIP.Text!=string.Empty)
 				{
                     stringBuilder.Append(string.Format("http://{0}", UDPXYIP.Text));
-                    stringBuilder.Append(string.Format("{0}\n", Object.@params.hwurl.Replace("rtp://", "/rtp/")));
+					if (SelectPlatform.SelectedIndex == 0)
+					{
+                        stringBuilder.Append(string.Format("{0}\n", Object.@params.hwurl.Replace("rtp://", "/rtp/")));
+                    }
+					else
+					{
+                        stringBuilder.Append(string.Format("{0}\n", Object.@params.zteurl.Replace("rtp://", "/rtp/")));
+                    }
+
                 }
 				else
 				{
@@ -56,7 +64,7 @@ namespace IPTV
 
 			}
 
-			string JsonPath = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Desktop)+"\\"+DateTime.Now.ToString("yyyy-M-dd-HH-mm-ss")+".m3u";
+			string JsonPath = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Desktop)+"\\"+DateTime.Now.ToString("yyyy-M-dd-HH-mm-ss")+"-"+SelectPlatform.Text+".m3u";
 			FileInfo m3ufile = new FileInfo(JsonPath);
 			 if (!m3ufile.Exists)
 				{
