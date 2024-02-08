@@ -7,40 +7,46 @@
         mc:Ignorable="d"
         Title="广东移动IPTV转M3U" Height="450" Width="800" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
     <Grid>
-        <TextBlock FontSize="20" HorizontalAlignment="Right" ToolTip="请给我点赞吧！">           
-    <Hyperlink NavigateUri="https://github.com/nature2608/IPTV2M3U" Cursor="Hand" Click="Hyperlink_Click" >
-             <Image Source="./1.jpeg" Height="60" Width="60" />
-    </Hyperlink>
-        </TextBlock>
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="0.8*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-            </Grid.RowDefinitions>
-            <StackPanel Orientation="Horizontal" Margin="10,20,0,0">
-                <Label Content="请求地址：" FontSize="20"  VerticalAlignment="Center"></Label>
-                <TextBox Name="ApplyUrl" FontSize="18" Text="http://183.235.16.92:8082/epg/api/custom/getAllChannel.json"  VerticalAlignment="Center"  VerticalContentAlignment="Center"></TextBox>
-            </StackPanel>
-            <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                <CheckBox x:Name="IncludeLogo" Width="100" Content="生成台标" FontSize="16" IsChecked="True"></CheckBox>
-                <Label Content="使用平台："></Label>
-                <ComboBox x:Name="SelectPlatform" Height="30" VerticalAlignment="Top" SelectedIndex="0">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"></ColumnDefinition>
+            <ColumnDefinition Width="1*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <GroupBox Header="参数设置">
+            <WrapPanel Orientation="Vertical">
+                <Label Content="请求地址："  FontSize="20"  VerticalAlignment="Center"></Label>
+                <ComboBox x:Name="Selecturl" Height="30" SelectedIndex="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Left" Width="90">
+                    <ComboBoxItem Content="地址一"/>
+                    <ComboBoxItem Content="地址二(含超清地址)"/>
+                </ComboBox>
+                <Label Content="使用平台："  FontSize="20" VerticalAlignment="Center"></Label>
+                <ComboBox x:Name="SelectPlatform" Height="30"  SelectedIndex="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"  HorizontalAlignment="Left" Width="90">
                     <ComboBoxItem Content="华为平台"/>
                     <ComboBoxItem Content="中兴平台"/>
                 </ComboBox>
-            </StackPanel>
-            <Label Grid.Row="1" Content="若清空内网地址则直接生成 rtp:// 开头格式地址" Width="270" Height="30"  VerticalAlignment="Bottom" HorizontalAlignment="Center"/>
-
-            <StackPanel Grid.Row="2" Orientation="Horizontal"  HorizontalAlignment="Center" VerticalAlignment="Top" >
-                <Label Content="请输入内网udpxy地址：" FontSize="20" HorizontalAlignment="Center"></Label>
-                <TextBox Name="UDPXYIP" Text="192.168.1.1:4022" Width="200" BorderThickness="2" FontSize="20" VerticalAlignment="Center"></TextBox>
-                <Label Content="格式：192.168.1.1:4022" FontSize="20" Foreground="LightGray"></Label>
-            </StackPanel>
-            <Button Grid.Row="3" Width="80" Height="50" Content="生成"  Click="Generate" VerticalAlignment="Top"></Button>
-        </Grid>
-        <Label Content=" By nature2608 V1.1" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,20,0"></Label>
-
+                <CheckBox x:Name="IncludeLogo" Width="100" Margin="0,10,0,10" Content="生成台标" FontSize="16" IsChecked="True" HorizontalAlignment="Left"></CheckBox>
+                <!--<TextBox Name="ApplyUrl" FontSize="18" Text="http://183.235.16.92:8082/epg/api/custom/getAllChannel2.json"  VerticalAlignment="Center"  VerticalContentAlignment="Center"></TextBox>-->
+                <CheckBox x:Name="format" IsChecked="False" FontSize="16">生成空壳播放器格式(频道,地址)</CheckBox>
+                <Label Grid.Row="1" Content="若清空内网地址则直接生成 rtp:// 开头格式地址"  Width="270" Height="30" Margin="0,20,0,0" VerticalAlignment="Bottom" HorizontalAlignment="Center" Foreground="Red"/>
+                <Label Content="请输入内网udpxy或msd-lite地址：" FontSize="20" ></Label>
+                <TextBox Name="UDPXYIP" Text="192.168.1.1:4022" Width="200" BorderThickness="2" FontSize="20" HorizontalAlignment="Center"></TextBox>
+                <Label Content="格式：192.168.1.1:4022" FontSize="20" Foreground="LightGray" HorizontalAlignment="Center"></Label>
+                <Button Width="80" Height="50" Content="生成"  Click="Generate" ></Button>
+            </WrapPanel>
+        </GroupBox>
+        <GroupBox Grid.Column="1" Header="输出">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="9*"></RowDefinition>
+                    <RowDefinition Height="1*"></RowDefinition>
+                </Grid.RowDefinitions>
+                <RichTextBox x:Name="output"></RichTextBox>
+                <Label Grid.Row="1" Content=" By nature2608 V1.1" HorizontalAlignment="Right" Margin="0,0,50,0" VerticalAlignment="Center"></Label>
+                <TextBlock  Grid.Row="1" FontSize="20" HorizontalAlignment="Right" ToolTip="请给我点赞吧！" >           
+                    <Hyperlink NavigateUri="https://github.com/nature2608/IPTV2M3U" Cursor="Hand" Click="Hyperlink_Click" >
+                        <Image Source="./1.jpeg" Height="40" Width="40" />
+                    </Hyperlink>
+                </TextBlock>
+            </Grid>
+        </GroupBox>
     </Grid>
 </Window>
