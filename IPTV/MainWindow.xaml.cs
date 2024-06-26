@@ -61,7 +61,7 @@ namespace IPTV
 				//是否生成台标
 				if (Object.icon != string.Empty && IncludeLogo.IsChecked == true)
 				{
-					stringBuilder.Append(string.Format("tvg-logo:\"{0}\"", Object.icon));
+					stringBuilder.Append(string.Format("tvg-logo=\"{0}\"", Object.icon));
 				}
 
 
